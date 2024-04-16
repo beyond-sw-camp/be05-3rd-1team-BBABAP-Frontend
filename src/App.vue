@@ -1,11 +1,11 @@
-<template>   
+<template>
   <div>
     <HeaderLayout />
     <router-view />
     <FooterLayout />
     <KakaoMap />
   </div>
-  
+
 </template>
 
 <script>
