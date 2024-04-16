@@ -34,6 +34,7 @@ export default {
       })
       .then(response => {
         console.log('등록 성공:', response.data);
+        this.$router.push('/login');
         // 등록 후 폼 초기화
         this.email = '';
         this.password = '';

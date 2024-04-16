@@ -1,3 +1,4 @@
+<!-- Login.vue -->
 <template>
   <div>
     <h1>로그인</h1>
@@ -10,6 +11,7 @@
 
       <button type="submit">로그인</button>
     </form>
+    <p>회원이 아니신가요? <router-link to="/register">여기에서 회원가입 하세요.</router-link></p>
   </div>
 </template>
 
@@ -25,7 +27,6 @@ export default {
   },
   methods: {
     loginUser() {
-      // 폼 데이터 생성
       let formData = new FormData();
       formData.append('email', this.email);
       formData.append('password', this.password);
@@ -33,7 +34,9 @@ export default {
       axios.post('http://localhost:7777/login', formData)
       .then(response => {
         console.log('로그인 성공:', response.data);
-        // 로그인 성공 후 다음 작업 수행
+        // 로그인 성공 시 사용자 정보를 Vuex 스토어에 저장
+        this.$store.commit('login', { user: response.data.user, access: response.data.access });
+        this.$router.push('/index'); // 로그인 후 /index 페이지로 이동
       })
       .catch(error => {
         console.error('로그인 실패:', error);
