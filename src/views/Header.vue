@@ -5,8 +5,8 @@
         <ul>
           <li><router-link to="/map">지도</router-link></li>
           <li><router-link to="/boards">게시판</router-link></li>
-          <li v-if="isLoggedIn">
-<!--            <span>안녕하세요, {{ userNickname }}</span>-->
+          <li v-if="isLoggedIn" class="user-info">
+            <span>{{ userNickname }}</span>
             <button @click="logout">로그아웃</button>
           </li>
           <li v-else>
@@ -58,5 +58,38 @@ nav ul li {
 nav ul li a {
   color: white;
   text-decoration: none;
+}
+
+nav ul li span {
+  color: white;
+  margin-right: 10px;
+}
+
+nav ul li button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+nav ul li button:hover {
+  background-color: #45a049;
+}
+
+nav ul li button:focus {
+  outline: none;
+}
+
+.user-info {
+  margin-left: auto; /* 로그아웃 버튼을 오른쪽으로 이동 */
+}
+
+nav ul li {
+  font-size: 16px; /* nav 아이템의 글자 크기를 키움 */
 }
 </style>
