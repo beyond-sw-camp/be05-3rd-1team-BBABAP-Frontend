@@ -1,17 +1,23 @@
-<template>
-  <div id="app">
-    <KakaoMap />
-    <ChargingStation />
+<template>   
+  <div>
+    <HeaderLayout />
+    <router-view />
+    <FooterLayout />
   </div>
+  
 </template>
 
 <script>
-import KakaoMap from "./components/KakaoMap";
-
+import HeaderLayout from '@/commonLayout/HeaderLayout.vue'
+import FooterLayout from '@/commonLayout/FooterLayout.vue'
 export default {
-  name: "App",
   components: {
-    KakaoMap,
+    HeaderLayout,
+    FooterLayout
   }
-};
+}
 </script>
+
+<style>
+
+</style>

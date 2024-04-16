@@ -1,0 +1,34 @@
+{
+  "boards": [
+    {
+      "idx": 1,
+      "title": "첫 게시물 제목",
+      "contents": "첫번째 게시물 내용",
+      "author" : "하지민"
+    },
+    {
+      "idx": 2,
+      "title": "두번째 게시물 제목",
+      "contents": "두번째 게시물 내용",
+      "author" : "하짐니"
+    },
+    {
+      "idx": 3,
+      "title": "세번째 게시물 제목",
+      "contents": "세번째 게시물 내용",
+      "author" : "하짐니"
+    },
+    {
+      "idx": 4,
+      "title": "네번째 게시물 제목",
+      "contents": "네번째 게시물 내용",
+      "author" : "하찜니"
+    },
+    {
+      "title": "추가 게시물",
+      "contents": "추가 내용",
+      "idx": 5,
+      "author" : "하하하"
+    }
+  ]
+}
