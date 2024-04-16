@@ -1,17 +1,18 @@
 <template>
   <div id="app">
+    <!-- KakaoMap 컴포넌트 사용 -->
     <KakaoMap />
-    <ChargingStation />
   </div>
 </template>
 
 <script>
-import KakaoMap from "./components/KakaoMap";
+import KakaoMap from './components/KakaoMap.vue';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     KakaoMap,
-  }
+  },
 };
 </script>
+

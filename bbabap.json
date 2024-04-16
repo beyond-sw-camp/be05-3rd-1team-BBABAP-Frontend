@@ -1,0 +1,60 @@
+{
+  "favorites": [
+    {
+      "id": "657000320",
+      "address_name": "서울 동작구 흑석동 340",
+      "category_group_code": "",
+      "category_group_name": "",
+      "category_name": "교통,수송 > 자동차 > 전기자동차 충전소",
+      "distance": "",
+      "phone": "1833-8017",
+      "place_name": "흑석롯데캐슬에듀포레아파트 전기차충전소",
+      "place_url": "http://place.map.kakao.com/657000320",
+      "road_address_name": "서울 동작구 서달로 123",
+      "x": "126.959673369125",
+      "y": "37.50421231522"
+    },
+    {
+      "id": "105353560",
+      "address_name": "서울 동작구 흑석동 327",
+      "category_group_code": "",
+      "category_group_name": "",
+      "category_name": "교통,수송 > 자동차 > 전기자동차 충전소",
+      "distance": "",
+      "phone": "1600-4047",
+      "place_name": "서울시 동작구 흑석청호아파트 전기차충전소",
+      "place_url": "http://place.map.kakao.com/105353560",
+      "road_address_name": "서울 동작구 서달로2길 29",
+      "x": "126.9627337592263",
+      "y": "37.50191034999976"
+    },
+    {
+      "id": "21222983",
+      "address_name": "서울 동작구 대방동 334",
+      "category_group_code": "OL7",
+      "category_group_name": "주유소,충전소",
+      "category_name": "교통,수송 > 자동차 > 주유,가스 > LPG충전소 > SK LPG충전소",
+      "distance": "",
+      "phone": "02-821-2236",
+      "place_name": "동주충전소",
+      "place_url": "http://place.map.kakao.com/21222983",
+      "road_address_name": "서울 동작구 상도로 74",
+      "x": "126.928803779278",
+      "y": "37.4994980979559"
+    },
+    {
+      "id": "13606372",
+      "address_name": "서울 관악구 봉천동 1594-8",
+      "category_group_code": "OL7",
+      "category_group_name": "주유소,충전소",
+      "category_name": "교통,수송 > 자동차 > 주유,가스 > LPG충전소 > SK LPG충전소",
+      "distance": "",
+      "phone": "02-887-0700",
+      "place_name": "SK행복충전 명화가스충전소",
+      "place_url": "http://place.map.kakao.com/13606372",
+      "road_address_name": "서울 관악구 관악로 96",
+      "x": "126.953522835291",
+      "y": "37.4737920344688"
+    }
+  ]
+}
