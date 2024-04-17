@@ -1,7 +1,7 @@
 <template>
   <div class="post-details">
     <h2 class="post-title">{{ board.title }}</h2>
-    <p class="post-content">{{ board.content }}</p>
+    <p class="post-content" v-html="board.content"></p>
     <router-link to="/boardlist" class="back-link">뒤로 가기</router-link>
   </div>
 </template>
