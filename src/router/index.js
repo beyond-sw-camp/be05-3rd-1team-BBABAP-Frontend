@@ -1,29 +1,63 @@
-// router/index.js
-import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import BoardView from '../views/BoardView.vue'; // BoardView 컴포넌트 import
+
+import { createRouter, createWebHistory } from 'vue-router'
+import SignupForm from '@/components/SignupForm.vue';
+import LoginForm from '@/components/LoginForm.vue';
+import BoardListJsonServer from '../views/BoardListJsonServer';
+import PostForm from '../views/PostForm.vue';
+import BoardView from '../views/BoardView.vue';
+
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+
+    component: () => import('../views/HomeView.vue')
+
   },
   {
     path: '/about',
     name: 'about',
+
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
-    path: '/boards', // '/boards' 경로 추가
-    name: 'boards',
-    component: BoardView // BoardView 컴포넌트 추가
+    path: '/boardlist',
+    name: 'BoardList',
+    component: BoardListJsonServer // 나중에 BoardList.vue로 바꿔주기
+  },
+  {
+    path: '/signup',
+    name: 'SignupForm',
+    component: SignupForm
+  },
+  {
+    path: '/login',
+    name: 'LoginForm',
+    component: LoginForm
+  },
+  
+  { 
+    path: '/post/new',
+    name: 'PostBoard', 
+    component: PostForm 
+  },
+  { 
+    path: '/board/:id', 
+    name:'boardView',
+    component: BoardView 
   }
-];
+]
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-});
 
-export default router;
+})
+
+export default router
+

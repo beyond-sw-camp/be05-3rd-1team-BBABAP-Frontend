@@ -1,12 +1,8 @@
 <template>
-  <div>
-    <h1>게시판</h1>
-    <ul>
-      <li v-for="board in boards" :key="board.id">
-        {{ board.title }}
-        {{ board.nickname}}</li>
-    </ul>
-
+  <div class="post-details">
+    <h2 class="post-title">{{ board.title }}</h2>
+    <p class="post-content" v-html="board.content"></p>
+    <router-link to="/boardlist" class="back-link">뒤로 가기</router-link>
   </div>
 </template>
 
@@ -16,19 +12,54 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      boards: []
+      board: {}
     };
   },
-  mounted() {
-    // 게시글 목록을 가져오는 API 호출
-    axios.get('http://localhost:7777/boards')
+  created() {
+    this.fetchPost();
+  },
+  methods: {
+    fetchPost() {
+      const boardId = this.$route.params.id;
+      axios.get(`http://localhost:7777/boards/${boardId}`)
         .then(response => {
-          // API 호출에 성공하면 데이터를 저장
-          this.boards = response.data.content;
+          this.board = response.data;
         })
         .catch(error => {
-          console.error('API 호출에 실패했습니다:', error);
+          console.error('Error fetching post:', error);
         });
+    }
   }
 };
 </script>
+
+<style scoped>
+.post-details {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.post-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.post-content {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.back-link {
+  display: inline-block;
+  color: #007bff;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+</style>
