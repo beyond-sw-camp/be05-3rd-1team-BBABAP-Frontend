@@ -1,6 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import BoardList from '@/views/board/BoardList.vue'
-// import BoardDetail from '@/views/board/BoardDetail.vue'
+import BoardDetail from '@/views/board/BoardDetail.vue'
+
+import SignupForm from '@/components/SignupForm.vue';
+import LoginForm from '@/components/LoginForm.vue';
+
+
 
 const routes = [
   {
@@ -21,16 +26,27 @@ const routes = [
     name: 'BoardList',
     component: () => import('../views/BoardListJsonServer.vue') // 나중에 BoardList.vue로 바꿔주기
   },
-  // {
-  //   path: '/board/list',
-  //   name: 'BoardList2',
-  //   component: BoardList
-  // },
+  {
+    path: '/board/list',
+    name: 'BoardList2',
+    component: BoardList
+  },
   {
     path: '/board/detail',
     name: 'BoardDetail',
     component: BoardDetail
   },
+  {
+    path: '/signup',
+    name: 'SignupForm',
+    component: SignupForm
+  },
+  {
+    path: '/login',
+    name: 'LoginForm',
+    component: LoginForm
+  },
+  
 ]
 
 const router = createRouter({

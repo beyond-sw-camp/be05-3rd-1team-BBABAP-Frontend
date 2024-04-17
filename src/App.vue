@@ -3,6 +3,7 @@
     <HeaderLayout />
     <router-view />
     <FooterLayout />
+    <KakaoMap />
   </div>
   
 </template>
@@ -13,7 +14,7 @@ import FooterLayout from '@/commonLayout/FooterLayout.vue'
 export default {
   components: {
     HeaderLayout,
-    FooterLayout
+    FooterLayout,
   }
 }
 </script>
