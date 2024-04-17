@@ -76,7 +76,7 @@
   * [FlowChart_전기차 충전소 DB CRUD](#FlowChart_전기차-충전소-DB-CRUD)
   * [TestCase](#TestCase)
 
-### 4. [마치며...](마치며...)
+### 4. [화면테스트](화면테스트)
 
 
 ---
@@ -333,5 +333,6 @@
 
 ![image](https://github.com/beyond-sw-camp/be05-2nd-1team-BBABAP/assets/155924495/3aabc81a-10e1-404e-bf69-9a4ae714a5bc)
 
-# 4. 마치며...
-![빠밥 사진](https://github.com/beyond-sw-camp/be05-2nd-1team-BBABAP/assets/65129708/02b36fd5-7bd3-4b89-919d-3c9a78e9ab15))   
+<br>
+
+# 4. 화면테스트
