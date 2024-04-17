@@ -8,8 +8,11 @@
       </div>
       <div class="form-group">
         <label for="content">내용:</label>
-        <quill-editor v-model="post.content" :options="editorOption"></quill-editor>
+        <textarea id="summernote" v-model="post.content" placeholder="내용을 입력하세요"></textarea>
       </div>
+<!--      <div class="editor-page">-->
+<!--        <div id="summernote"></div>-->
+<!--      </div>-->
       <button type="submit" class="submit-button">작성</button>
     </form>
   </div>
@@ -17,11 +20,16 @@
 
 <script>
 import axios from 'axios';
-import { quillEditor } from 'vue-quill-editor';
+
+import $ from 'jquery';
+import 'bootstrap';
+
+import 'summernote/dist/summernote-lite.css';
+import 'summernote/dist/summernote-lite';
 
 export default {
   components: {
-    quillEditor,
+    // QuillEditor ,
   },
   data() {
     return {
@@ -36,6 +44,23 @@ export default {
         // Quill 옵션 설정 (필요에 따라 추가 가능)
       }
     };
+  },
+
+  created() {
+    console.log(this.editorOption);
+  },
+
+  mounted() {
+    // Summernote 초기화
+    $('#summernote').summernote({
+      height: 300, // 높이 설정 (원하는 대로 조절 가능)
+      callbacks: {
+        onChange: (contents) => {
+          // 내용이 변경될 때마다 데이터에 저장
+          this.post.content = contents;
+        }
+      }
+    });
   },
 
   methods: {
