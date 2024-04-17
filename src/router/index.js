@@ -4,7 +4,7 @@ import HomeView from '../views/HomeView.vue';
 import BoardView from '../views/BoardView.vue';
 import RegisterView from "@/views/RegisterView";
 import LoginView from "@/views/LoginView";
-import Header from "@/views/Header"; // BoardView 컴포넌트 import
+import Header from "@/views/Header";
 
 const routes = [
   {

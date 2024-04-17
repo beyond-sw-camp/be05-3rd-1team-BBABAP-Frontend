@@ -28,15 +28,20 @@ export default {
   },
   methods: {
     loginUser() {
+      // FormData 객체 생성
       let formData = new FormData();
+      // FormData에 필드 추가
       formData.append('email', this.email);
       formData.append('password', this.password);
 
+      // axios를 사용하여 POST 요청 보내기
       axios.post('http://localhost:7777/login', formData)
       .then(response => {
-        console.log('로그인 성공:', response.data);
+        console.log(response.headers.get('access'));
+        console.log('로그인 성공:', this.email, this.password, response.headers['access']);
         // 로그인 성공 시 사용자 정보를 Vuex 스토어에 저장
-        this.$store.commit('login', {user: response.data.user, access: response.data.access});
+        console.log(response);
+        this.$store.commit('login', {user: response.data.user, access: response.headers.get('access')});
         this.$router.push('/index'); // 로그인 후 /index 페이지로 이동
       })
       .catch(error => {
