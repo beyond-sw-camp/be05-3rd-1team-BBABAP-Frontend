@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import BoardList from '@/views/board/BoardList.vue'
 import BoardDetail from '@/views/board/BoardDetail.vue'
-
 import SignupForm from '@/components/SignupForm.vue';
 import LoginForm from '@/components/LoginForm.vue';
+import BoardListJsonServer from '../views/BoardListJsonServer';
+import PostForm from '../views/PostForm.vue';
+import BoardView from '../views/BoardView.vue';
 
 
 
@@ -24,7 +26,7 @@ const routes = [
   {
     path: '/boardlist',
     name: 'BoardList',
-    component: () => import('../views/BoardListJsonServer.vue') // 나중에 BoardList.vue로 바꿔주기
+    component: BoardListJsonServer // 나중에 BoardList.vue로 바꿔주기
   },
   {
     path: '/board/list',
@@ -47,6 +49,16 @@ const routes = [
     component: LoginForm
   },
   
+  { 
+    path: '/post/new',
+    name: 'PostBoard', 
+    component: PostForm 
+  },
+  { 
+    path: '/board/:id', 
+    name:'boardView',
+    component: BoardView 
+  }
 ]
 
 const router = createRouter({

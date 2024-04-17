@@ -1,104 +1,140 @@
 <template>
-    <div class="board-list">
-      <div class="common-buttons">
-        <button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnWrite">등록</button>
-      </div>
-      <table class="w3-table-all">
+    <div class="container">
+      <h2>게시물 목록</h2>
+      <table class="table">
         <thead>
-        <tr>
-          <th>No</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>등록일시</th>
-        </tr>
+          <tr>
+            <th>ID</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+          </tr>
         </thead>
         <tbody>
-        <tr v-for="(row, idx) in list" :key="idx">
-          <td>{{ row.idx }}</td>
-          <td><a v-on:click="fnView(`${row.idx}`)">{{ row.title }}</a></td>
-          <td>{{ row.author }}</td>
-          <td>{{ row.created_at }}</td>
-        </tr>
+          <tr v-for="board in displayedBoards" :key="board.id">
+            <td>{{ board.id }}</td>
+            <td><router-link :to="'/board/' + board.id">{{ board.title }}</router-link></td>
+            <td>{{ board.author }}</td>
+            <td>{{ board.created_date }}</td>
+          </tr>
         </tbody>
       </table>
-      <div class="pagination w3-bar w3-padding-16 w3-small" v-if="paging.total_list_cnt > 0">
-        <span class="pg">
-        <a href="javascript:;" @click="fnPage(1)" class="first w3-button w3-bar-item w3-border">&lt;&lt;</a>
-        <a href="javascript:;" v-if="paging.start_page > 10" @click="fnPage(`${paging.start_page-1}`)"
-           class="prev w3-button w3-bar-item w3-border">&lt;</a>
-        <template v-for=" (n,index) in paginavigation()">
-            <template v-if="paging.page==n">
-                <strong class="w3-button w3-bar-item w3-border w3-green" :key="index">{{ n }}</strong>
-            </template>
-            <template v-else>
-                <a class="w3-button w3-bar-item w3-border" href="javascript:;" @click="fnPage(`${n}`)" :key="index">{{ n }}</a>
-            </template>
-        </template>
-        <a href="javascript:;" v-if="paging.total_page_cnt > paging.end_page"
-           @click="fnPage(`${paging.end_page+1}`)" class="next w3-button w3-bar-item w3-border">&gt;</a>
-        <a href="javascript:;" @click="fnPage(`${paging.total_page_cnt}`)" class="last w3-button w3-bar-item w3-border">&gt;&gt;</a>
-        </span>
+      <div class="pagination">
+        <button v-if="currentPage > 1" @click="prevPage" class="pagination-btn">이전</button>
+        <button v-for="page in totalPages" :key="page" @click="setPage(page)" :class="{ 'pagination-btn': true, 'active': currentPage === page }">{{ page }}</button>
+        <button v-if="currentPage < totalPages" @click="nextPage" class="pagination-btn">다음</button>
       </div>
+      <br>
+      <button @click="goToPostForm" class="add-btn">게시물 작성하기</button>
     </div>
   </template>
   
   <script>
+  import axios from 'axios';
+  
   export default {
-    data() { //변수생성
+    data() {
       return {
-        requestBody: {}, //리스트 페이지 데이터전송
-        list: {}, //리스트 데이터
-        no: '', //게시판 숫자처리
-        paging: {
-          block: 0,
-          end_page: 0,
-          next_block: 0,
-          page: 0,
-          page_size: 0,
-          prev_block: 0,
-          start_index: 0,
-          start_page: 0,
-          total_block_cnt: 0,
-          total_list_cnt: 0,
-          total_page_cnt: 0,
-        }, //페이징 데이터
-        page: this.$route.query.page ? this.$route.query.page : 1,
-        size: this.$route.query.size ? this.$route.query.size : 10,
-        keyword: this.$route.query.keyword,
-        paginavigation: function () { //페이징 처리 for문 커스텀
-          let pageNumber = [] //;
-          let start_page = this.paging.start_page;
-          let end_page = this.paging.end_page;
-          for (let i = start_page; i <= end_page; i++) pageNumber.push(i);
-          return pageNumber;
-        }
+        boards: [],
+        currentPage: 1,
+        perPage: 10
+      };
+    },
+    computed: {
+      totalPages() {
+        return Math.ceil(this.boards.length / this.perPage);
+      },
+      displayedBoards() {
+        const startIndex = (this.currentPage - 1) * this.perPage;
+        const endIndex = this.currentPage * this.perPage;
+        return this.boards.slice(startIndex, endIndex);
       }
     },
-    mounted() {
-        // fnGetList 함수를 사용하여 데이터를 가져오는 대신, JSON 파일에서 직접 데이터를 읽어옵니다.
-        this.list = require('../../fake-server/db.json').boards; // JSON 파일의 경로에 주의하세요.
+    created() {
+      this.fetchBoards();
     },
-    methods: { // 일단은 여기 안 씀
-      fnGetList() {
-        this.requestBody = { // 데이터 전송
-          keyword: this.keyword,
-          page: this.page,
-          size: this.size
+    methods: {
+      fetchBoards() {
+        axios.get('http://localhost:7777/boards')
+          .then(response => {
+            this.boards = response.data;
+          })
+          .catch(error => {
+            console.error('Error fetching boards:', error);
+          });
+      },
+      goToPostForm() {
+        this.$router.push('/post/new');
+      },
+      setPage(page) {
+        this.currentPage = page;
+      },
+      nextPage() {
+        if (this.currentPage < this.totalPages) {
+          this.currentPage++;
         }
-  
-        this.$axios.get(this.$serverUrl + "/board/list", {
-          params: this.requestBody,
-          headers: {}
-        }).then((res) => {      
-  
-          this.list = res.data  //서버에서 데이터를 목록으로 보내므로 바로 할당하여 사용할 수 있다.
-  
-        }).catch((err) => {
-          if (err.message.indexOf('Network Error') > -1) {
-            alert('네트워크가 원활하지 않습니다.\n잠시 후 다시 시도해주세요.')
-          }
-        })
+      },
+      prevPage() {
+        if (this.currentPage > 1) {
+          this.currentPage--;
+        }
       }
     }
-  }
+  };
   </script>
+  
+  <style>
+  .container {
+    margin: 20px auto;
+    width: 80%;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+  }
+  
+  .pagination {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .pagination-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .pagination-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .active {
+    background-color: #45a049;
+  }
+  
+  .add-btn {
+    background-color: #008CBA;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .add-btn:hover {
+    background-color: #00698C;
+  }
+  </style>
