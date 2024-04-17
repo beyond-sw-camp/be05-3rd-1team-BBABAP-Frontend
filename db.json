@@ -60,6 +60,20 @@
       "email": "rkdcksal05@gmail.com",
       "password": "Coco@486",
       "id": "ILbG2D1"
+    },
+    {
+      "username": "user123",
+      "nickname": "동동",
+      "email": "hsw50108@gmail.com",
+      "password": "123QWE!@#",
+      "id": "SIRZR54"
+    },
+    {
+      "username": "user1234",
+      "nickname": "user1234",
+      "email": "aaa1234@naver.com",
+      "password": "123QWE!@#",
+      "id": "nRr19MQ"
     }
   ]
 }
