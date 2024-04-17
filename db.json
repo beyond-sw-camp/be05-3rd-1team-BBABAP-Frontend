@@ -1,19 +1,58 @@
 {
   "posts": [
     {
-      "id": 1,
+      "id": "1",
       "title": "json-server",
       "author": "typicode"
     }
   ],
   "comments": [
     {
-      "id": 1,
+      "id": "1",
       "body": "some comment",
       "postId": 1
     }
   ],
   "profile": {
     "name": "typicode"
-  }
+  },
+  "favorites": [
+    {
+      "id": "8130098",
+      "address_name": "서울 강서구 화곡동 1125",
+      "category_group_code": "OL7",
+      "category_group_name": "주유소,충전소",
+      "category_name": "교통,수송 > 자동차 > 주유,가스 > 주유소 > S-oil주유소",
+      "distance": "",
+      "phone": "02-2605-4000",
+      "place_name": "하이웨이주유소",
+      "place_url": "http://place.map.kakao.com/8130098",
+      "road_address_name": "서울 강서구 공항대로 432",
+      "x": "126.85480465807",
+      "y": "37.5546689074197"
+    },
+    {
+      "id": "1205941793",
+      "address_name": "경기 성남시 수정구 수진동 4709",
+      "category_group_code": "OL7",
+      "category_group_name": "주유소,충전소",
+      "category_name": "교통,수송 > 자동차 > 주유,가스 > 주유소 > 알뜰주유소",
+      "distance": "",
+      "phone": "031-759-0178",
+      "place_name": "대보건설 성남주유소",
+      "place_url": "http://place.map.kakao.com/1205941793",
+      "road_address_name": "경기 성남시 수정구 산성대로 41",
+      "x": "127.12422865070408",
+      "y": "37.435621240665185"
+    }
+  ],
+  "users": [
+    {
+      "id": "3a7a",
+      "username": "qwer",
+      "nickname": "qwer",
+      "email": "qwer@gmail.com",
+      "password": "QWER!"
+    }
+  ]
 }
