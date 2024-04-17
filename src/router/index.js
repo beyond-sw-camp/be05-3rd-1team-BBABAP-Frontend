@@ -22,11 +22,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
-    path: '/boardlist',
-    name: 'BoardList',
-    component: BoardListJsonServer // 나중에 BoardList.vue로 바꿔주기
-  },
-  {
     path: '/signup',
     name: 'SignupForm',
     component: SignupForm
