@@ -4,10 +4,21 @@ import LoginForm from '@/components/LoginForm.vue';
 import BoardListJsonServer from '../views/BoardListJsonServer';
 import PostForm from '../views/PostForm.vue';
 import BoardView from '../views/BoardView.vue';
-
+//마이페이지 관련
+import MyPage from '../views/MyPage.vue';
+import UserInfo from '../components/UserInfo.vue';
+import MyPosts from '../components/MyPosts.vue';
+import FavoriteStations from '../components/FavoriteStations.vue';
+import ChargeCredits from '../components/ChargeCredits.vue';
+import MyCoupons from '../components/MyCoupons.vue';
+import InquiriesPage from '../components/InquiriesPage.vue';
 
 
 const routes = [
+  {
+    path: '/mypage/favoritestations',
+    component: FavoriteStations
+  },  
   {
     path: '/',
     name: 'home',
@@ -16,9 +27,6 @@ const routes = [
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
@@ -36,7 +44,6 @@ const routes = [
     name: 'LoginForm',
     component: LoginForm
   },
-  
   { 
     path: '/post/new',
     name: 'PostBoard', 
@@ -46,12 +53,43 @@ const routes = [
     path: '/board/:id', 
     name:'boardView',
     component: BoardView 
+  },
+  {
+    path: '/mypage',
+    name: 'MyPage',
+    component: MyPage,
+    children: [
+      {
+        path: 'userinfo',
+        component: UserInfo
+      },
+      {
+        path: 'myposts',
+        component: MyPosts
+      },
+      {
+        path: 'favoritestations',
+        component: FavoriteStations
+      },
+      {
+        path: 'chargecredits',
+        component: ChargeCredits
+      },
+      {
+        path: 'mycoupons',
+        component: MyCoupons
+      },
+      {
+        path: 'inquiriespage',
+        component: InquiriesPage
+      },
+    ]
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
+});
 
-export default router
+export default router;

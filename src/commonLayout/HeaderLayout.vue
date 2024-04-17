@@ -10,6 +10,7 @@
           <router-link v-if="!user" to="/signup">Join us</router-link>
           <div v-if="user" class="user-info">
             {{ user.nickname }} 님 반갑습니다!
+            <router-link to="/mypage">마이페이지</router-link>
             <button @click="logout">로그아웃</button>
           </div>
         </div>

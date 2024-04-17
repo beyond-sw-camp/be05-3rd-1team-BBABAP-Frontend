@@ -39,6 +39,15 @@ export default {
       if (user) {
         // 로그인 성공
         alert(`${user.nickname} 님 반갑습니다!`);
+        // 사용자의 식별자를 이용하여 첫 방문 여부 확인
+        const firstLoginKey = `firstLogin_${user.id}`;
+        const firstLogin = !localStorage.getItem(firstLoginKey);
+        if (firstLogin) {
+          // 첫 로그인 시에 모달 창 표시
+          alert(`첫 회원가입 기념 전기차 충전소 50% 쿠폰이 발급되었습니다!`);
+          // 로컬 스토리지에 첫 로그인 여부 저장
+          localStorage.setItem(firstLoginKey, 'true');
+        }
         // 로그인 성공 시 홈페이지로 자동 이동
         this.$router.push('/');
         // 상단바에 닉네임 표시 및 로그아웃 버튼 추가

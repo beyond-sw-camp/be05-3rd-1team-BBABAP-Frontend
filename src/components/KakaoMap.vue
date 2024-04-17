@@ -21,6 +21,11 @@
               <span>{{ place.road_address_name }}</span>
               <span class="jibun gray">{{ place.address_name }}</span>
               <span class="tel">{{ place.phone }}</span>
+              <!-- 기존의 코드에 추가 -->
+<span>
+  <button @click="toggleFavorite(place)">즐겨찾기 {{ isFavorite(place) ? '제거' : '추가' }}</button>
+</span>
+
             </div>
           </li>
         </ul>
@@ -144,10 +149,58 @@ export default {
     removeMarkers() {
       this.markers.forEach(marker => marker.setMap(null));
       this.markers = [];
+    },
+    // 즐겨찾기 메서드를 컴포넌트의 메서드로 옮겼습니다.
+    toggleFavorite(place) {
+      if (this.isFavorite(place)) {
+        this.removeFavorite(place);
+      } else {
+        this.addFavorite(place);
+      }
+    },
+    isFavorite(place) {
+      // this.favorites를 사용하도록 수정합니다.
+      return this.$root.favorites.some(favorite => favorite.place_name === place.place_name);
+    },
+    async addFavorite(place) {
+      try {
+        const response = await fetch('http://localhost:3000/favorites', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(place)
+        });
+        if (response.ok) {
+          const data = await response.json();
+          this.$root.favorites.push(data);
+        } else {
+          console.error('Failed to add favorite');
+        }
+      } catch (error) {
+        console.error('Error adding favorite:', error);
+      }
+    },
+    async removeFavorite(place) {
+      try {
+        const index = this.$root.favorites.findIndex(favorite => favorite.place_name === place.place_name);
+        const response = await fetch(`http://localhost:3000/favorites/${this.$root.favorites[index].id}`, {
+          method: 'DELETE'
+        });
+        if (response.ok) {
+          this.$root.favorites.splice(index, 1);
+        } else {
+          console.error('Failed to remove favorite');
+        }
+      } catch (error) {
+        console.error('Error removing favorite:', error);
+      }
     }
   }
 };
 </script>
+
+
 
 <style scoped>
 /* 여기에 스타일을 추가합니다 */
