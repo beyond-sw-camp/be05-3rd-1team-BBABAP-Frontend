@@ -11,6 +11,12 @@ const store = createStore({
     clearUser(state) {
       state.user = null;
     }
+  },
+  getters: {
+    // user 상태의 nickname 속성을 반환하는 getter
+    userNickname: state => {
+      return state.user ? state.user.nickname : null;
+    }
   }
 });
 

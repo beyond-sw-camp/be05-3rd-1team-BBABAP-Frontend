@@ -53,6 +53,13 @@
       "nickname": "qwer",
       "email": "qwer@gmail.com",
       "password": "QWER!"
+    },
+    {
+      "username": "jimin",
+      "nickname": "짐니",
+      "email": "hjm3327@naver.com",
+      "password": "3327AA!!",
+      "id": "VLNjWOR"
     }
   ]
 }

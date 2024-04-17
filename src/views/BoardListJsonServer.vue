@@ -24,8 +24,9 @@
         <button v-for="page in totalPages" :key="page" @click="setPage(page)" :class="{ 'pagination-btn': true, 'active': currentPage === page }">{{ page }}</button>
         <button v-if="currentPage < totalPages" @click="nextPage" class="pagination-btn">다음</button>
       </div>
-      <br>
-      <button @click="goToPostForm" class="add-btn">게시물 작성하기</button>
+      <div style="text-align:right">
+        <button @click="goToPostForm" class="add-btn">게시물 작성하기</button>
+      </div>
     </div>
   </template>
   

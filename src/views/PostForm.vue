@@ -17,8 +17,15 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters } from 'vuex';
 
 export default {
+
+    computed: {
+    // userNickname getter를 가져옴
+    ...mapGetters(['userNickname'])
+  },
+
     data() {
         return {
             post: {
@@ -36,7 +43,8 @@ export default {
             // 현재 시간을 설정
             this.post.created_at = new Date().toISOString();
             this.post.created_date = this.post.created_at.slice(0, 10);
-            this.post.author = '익명';
+            this.post.author = this.userNickname;
+            console.log(this.userNickname);
             
             axios.post('http://localhost:7777/boards', this.post, {
                 headers: {
