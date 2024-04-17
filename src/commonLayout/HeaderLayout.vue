@@ -3,11 +3,11 @@
       <div class="navbar">
         <div class="brand">BBABAP</div>
         <div class="nav-links">
-          <router-link to="/">Home</router-link>
-          <router-link to="/about">About</router-link>
-          <router-link to="/boardlist">Board</router-link>
-          <router-link v-if="!user" to="/login">Login</router-link>
-          <router-link v-if="!user" to="/signup">Join us</router-link>
+          <router-link to="/">Home</router-link> |
+          <router-link to="/about">About</router-link> |
+          <router-link to="/boardlist">Board</router-link> |
+          <router-link v-if="!user" to="/login">Login</router-link> |
+          <router-link v-if="!user" to="/signup">Join us</router-link> 
           <div v-if="user" class="user-info">
             {{ user.nickname }} 님 반갑습니다!
             <button @click="logout">로그아웃</button>
