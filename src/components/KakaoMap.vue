@@ -13,6 +13,7 @@
           </div>
         </div>
         <hr>
+        <button @click="findMyLocation">내 위치 찾기</button>
         <ul id="placesList">
           <li v-for="(place, index) in places" :key="index" class="item">
             <span :class="'markerbg marker_' + (index + 1)"></span>
@@ -47,7 +48,7 @@ export default {
       const script = document.createElement("script");
       script.onload = () => window.kakao.maps.load(this.initMap);
       script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=915cffed372954b7b44804ed422b9cf0&libraries=services";
+          "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=915cffed372954b7b44804ed422b9cf0&libraries=services";
       document.head.appendChild(script);
     }
   },
@@ -60,8 +61,6 @@ export default {
       };
 
       this.map = new window.kakao.maps.Map(container, options);
-
-      // 전기차 충전소 마커를 표시합니다
       this.displayElectricChargingStation();
     },
     displayElectricChargingStation() {
@@ -74,9 +73,7 @@ export default {
         return;
       }
 
-      // 검색을 place_name으로 변경
       const ps = new window.kakao.maps.services.Places();
-      // ps.keywordSearch(this.keyword, this.placesSearchCB);
       ps.keywordSearch(this.keyword, this.placesSearchCB, { useMapBounds: true });
     },
     placesSearchCB(data, status, pagination) {
@@ -91,22 +88,20 @@ export default {
       }
     },
     displayPlaces() {
-      // 기존 마커 제거
       this.removeMarkers();
 
       const bounds = new window.kakao.maps.LatLngBounds();
 
-      // 검색 결과에 따라 마커 추가
       this.places.forEach((place, index) => {
         const position = new window.kakao.maps.LatLng(place.y, place.x);
         const markerImage = new window.kakao.maps.MarkerImage(
-          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png",
-          new window.kakao.maps.Size(36, 37),
-          {
-            spriteSize: new window.kakao.maps.Size(36, 691),
-            spriteOrigin: new window.kakao.maps.Point(0, (index * 46) + 10),
-            offset: new window.kakao.maps.Point(13, 37)
-          }
+            "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png",
+            new window.kakao.maps.Size(36, 37),
+            {
+              spriteSize: new window.kakao.maps.Size(36, 691),
+              spriteOrigin: new window.kakao.maps.Point(0, (index * 46) + 10),
+              offset: new window.kakao.maps.Point(13, 37)
+            }
         );
         const marker = new window.kakao.maps.Marker({
           position,
@@ -144,6 +139,50 @@ export default {
     removeMarkers() {
       this.markers.forEach(marker => marker.setMap(null));
       this.markers = [];
+    },
+    findMyLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+              const lat = position.coords.latitude;
+              const lng = position.coords.longitude;
+              const locPosition = new window.kakao.maps.LatLng(lat, lng);
+              this.displayMarker(locPosition);
+            },
+            error => {
+              console.error(error);
+              alert('내 위치를 가져오는 데 문제가 발생했습니다.');
+            },
+            {
+              enableHighAccuracy: false,
+              maximumAge: 0,
+              timeout: Infinity
+            }
+        );
+      } else {
+        alert('현재 브라우저에서는 geolocation를 지원하지 않습니다');
+      }
+    },
+    displayMarker(locPosition) {
+      const imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+      const imageSize = new window.kakao.maps.Size(24, 35);
+      const imageOption = { offset: new window.kakao.maps.Point(27, 69) };
+      const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+
+      const marker = new window.kakao.maps.Marker({
+        position: locPosition,
+        image: markerImage
+      });
+
+      marker.setMap(this.map);
+
+      const iwContent = '<div style="padding:5px;">현재 위치</div>';
+      const infowindow = new window.kakao.maps.InfoWindow({
+        content: iwContent
+      });
+
+      infowindow.open(this.map, marker);
+      this.map.setCenter(locPosition);
     }
   }
 };
