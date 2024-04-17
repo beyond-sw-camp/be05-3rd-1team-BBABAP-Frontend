@@ -3,7 +3,7 @@
     <HeaderLayout />
     <router-view />
     <FooterLayout />
-    <KakaoMap />
+    <FinalMap/>
   </div>
   
 </template>

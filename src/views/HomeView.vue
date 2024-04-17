@@ -6,7 +6,7 @@
 
 <script>
 // @ is an alias to /src
-import KakaoMap from '@/components/KakaoMap.vue'
+import KakaoMap from '@/components/FinalMap.vue'
 
 export default {
   name: 'HomeView',
