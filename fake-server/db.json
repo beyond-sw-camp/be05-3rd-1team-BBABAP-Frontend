@@ -1,34 +1,25 @@
 {
   "boards": [
     {
-      "idx": 1,
-      "title": "첫 게시물 제목",
-      "contents": "첫번째 게시물 내용",
-      "author" : "하지민"
+      "title": "ㅁㄴㅇㄹ",
+      "content": "ㅁㄴㅇㄹ",
+      "created_at": "2024-04-17",
+      "id": 1
     },
     {
-      "idx": 2,
-      "title": "두번째 게시물 제목",
-      "contents": "두번째 게시물 내용",
-      "author" : "하짐니"
+      "title": "테스트",
+      "content": "룰루",
+      "created_at": "2024-04-17",
+      "author": "익명",
+      "id": 2
     },
     {
-      "idx": 3,
-      "title": "세번째 게시물 제목",
-      "contents": "세번째 게시물 내용",
-      "author" : "하짐니"
-    },
-    {
-      "idx": 4,
-      "title": "네번째 게시물 제목",
-      "contents": "네번째 게시물 내용",
-      "author" : "하찜니"
-    },
-    {
-      "title": "추가 게시물",
-      "contents": "추가 내용",
-      "idx": 5,
-      "author" : "하하하"
+      "title": "ㅁㄴㅇㄹ",
+      "content": "ㅁㄴㅇㄹ",
+      "created_at": "2024-04-17T06:44:56.008Z",
+      "created_date": "2024-04-17",
+      "author": "익명",
+      "id": 3
     }
   ]
 }

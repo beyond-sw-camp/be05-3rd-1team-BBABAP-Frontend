@@ -4,7 +4,7 @@
     <ul>
       <li v-for="board in boards" :key="board.id">
         {{ board.title }}
-        {{ board.nickname}}
+        {{ board.nickname }}
       </li>
     </ul>
 
