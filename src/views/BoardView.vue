@@ -2,29 +2,36 @@
   <div class="post-details">
     <h2 class="post-title">{{ board.title }}</h2>
     <p class="post-content" v-html="board.content"></p>
+    
+    <!-- 댓글 목록 컴포넌트 -->
+    <CommentList :comments="comments" />
+
+    <!-- 댓글 작성 폼 컴포넌트 -->
+    <CommentForm @comment-added="fetchComments" />
+
     <router-link to="/boardlist" class="back-link">뒤로 가기</router-link>
-    <button v-if="shouldShowDeleteButton" @click="deletePost">삭제</button>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import { mapGetters } from 'vuex';
+import CommentForm from '../components/CommentForm.vue';
+import CommentList from '../components/CommentList.vue';
 
 export default {
+  components: {
+    CommentForm,
+    CommentList
+  },
   data() {
     return {
-      board: {}
+      board: {},
+      comments: []
     };
   },
   created() {
     this.fetchPost();
-  },
-  computed: {
-    ...mapGetters(['userNickname']),
-    shouldShowDeleteButton() {
-      return this.board.author === this.userNickname;
-    }
+    this.fetchComments();
   },
   methods: {
     fetchPost() {
@@ -37,20 +44,17 @@ export default {
           console.error('Error fetching post:', error);
         });
     },
-    deletePost() {
+    fetchComments() {
       const boardId = this.$route.params.id;
-      axios.delete(`http://localhost:7777/boards/${boardId}`)
+      axios.get(`http://localhost:7777/boards/${boardId}/comments`)
         .then(response => {
-          // 게시물 삭제 후 어떤 작업을 수행할 수 있음
-          // 예: 게시물 목록으로 이동
-          console.log(response);
-          this.$router.push('/boardlist');
+          this.comments = response.data;
         })
         .catch(error => {
-          console.error('Error deleting post:', error);
+          console.error('Error fetching comments:', error);
         });
     }
-  },
+  }
 };
 </script>
 
