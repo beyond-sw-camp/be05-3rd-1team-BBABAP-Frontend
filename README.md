@@ -130,22 +130,24 @@
 
 [요구사항 명세서](https://docs.google.com/spreadsheets/d/1HJ723_Ogkmu6DHP5rk5k0lYIcjl0OEtLpUuBsLs4hm0/edit#gid=740647757)
 
-
 # 3. 프로젝트 설명
 
 ## 지도
+
 - 카카오맵 API
 - 공공데이터_한국환경공단_전기차 충전소 위치 및 운영정보 API
 
 ## 회원
+
 - 회원가입
 - 로그인 / 로그아웃
 - 마이페이지
 - 즐겨찾기
 
 ## 게시판
- - 게시판 CRUD
- - 댓글
+
+- 게시판 CRUD
+- 댓글
 
 <br>
 
@@ -157,5 +159,11 @@
 
 [테스트 계획](https://docs.google.com/spreadsheets/d/1HJ723_Ogkmu6DHP5rk5k0lYIcjl0OEtLpUuBsLs4hm0/edit#gid=715609994)
 
+<details>
+  <summary>지도</summary>
+  <div markdown="1">
+    <img width="80%" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/c448a40a-b413-4ab2-a0f6-e00018bafd08"/>
+  </div>
 
+</details>
 
