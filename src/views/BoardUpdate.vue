@@ -8,7 +8,7 @@
             </div>
             <div class="form-group">
                 <label for="content">내용</label>
-                <textarea id="summernote" required></textarea>
+                <textarea id="summernote" v-model="updatedPost.content" required></textarea>
             </div>
             <button type="submit" class="submit-button">수정 완료</button>
         </form>
@@ -28,7 +28,10 @@ export default {
         return {
             updatedPost: {
                 title: '',
-                content: ''
+                content: '',
+                created_at: '', // created_at, created_date, author 추가
+                created_date: '',
+                author: ''
             }
         };
     },
@@ -55,8 +58,12 @@ export default {
             const boardId = this.$route.params.id;
             axios.get(`http://localhost:7777/boards/${boardId}`)
                 .then(response => {
+                    // 데이터 가져올 때의 속성값 설정
                     this.updatedPost.title = response.data.title;
                     this.updatedPost.content = response.data.content;
+                    this.updatedPost.created_at = response.data.created_at;
+                    this.updatedPost.created_date = response.data.created_date;
+                    this.updatedPost.author = response.data.author;
                     // 썸머노트 에디터에 게시물 내용 설정
                     $('#summernote').summernote('code', response.data.content);
                 })
@@ -65,8 +72,9 @@ export default {
                 });
         },
         submitForm() {
+            const { title, content, created_at, created_date, author } = this.updatedPost; // 모든 속성 추출
             const boardId = this.$route.params.id;
-            axios.put(`http://localhost:7777/boards/${boardId}`, this.updatedPost)
+            axios.put(`http://localhost:7777/boards/${boardId}`, { title, content, created_at, created_date, author })
                 .then(() => {
                     this.$router.push(`/board/${boardId}`); // 수정된 게시물로 이동
                 })

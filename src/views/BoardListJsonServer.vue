@@ -58,7 +58,7 @@
       fetchBoards() {
         axios.get('http://localhost:7777/boards')
           .then(response => {
-            this.boards = response.data;
+            this.boards = response.data.reverse();
           })
           .catch(error => {
             console.error('Error fetching boards:', error);

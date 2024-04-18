@@ -1,15 +1,16 @@
 <template>
   <div class="post-details">
     <h2 class="post-title">{{ board.title }}</h2>
+    <p>작성 시간: {{ formatCreatedAt(board.created_at) }}</p>
     <p class="post-content" v-html="board.content"></p>
-    <button v-if="shouldShowButton" @click="deletePost">삭제</button>
+    <button v-if="shouldShowButton" @click="deletePost">삭제하기</button>
     <button v-if="shouldShowButton" @click="goToUpdateForm">수정하기</button>
     
     <!-- 댓글 목록 컴포넌트 -->
     <CommentList :comments="comments" />
 
     <!-- 댓글 작성 폼 컴포넌트 -->
-    <CommentForm @comment-added="fetchComments" />
+    <CommentForm @comment-added="handleCommentAdded" />
 
     <router-link to="/boardlist" class="back-link">뒤로 가기</router-link>
   </div>
@@ -67,8 +68,6 @@ export default {
       const boardId = this.$route.params.id;
       axios.delete(`http://localhost:7777/boards/${boardId}`)
         .then(response => {
-          // 게시물 삭제 후 어떤 작업을 수행할 수 있음
-          // 예: 게시물 목록으로 이동
           console.log(response);
           this.$router.push('/boardlist');
         })
@@ -78,7 +77,16 @@ export default {
     },
     goToUpdateForm() {
       const boardId = this.$route.params.id;
-      this.$router.push(`/update/${boardId}`); // 수정 폼으로 이동
+      this.$router.push(`/update/${boardId}`);
+    },
+    handleCommentAdded() {
+      // 댓글이 추가되었을 때 실행할 작업을 여기에 작성
+      // 댓글 목록을 다시 불러오거나, 다른 필요한 작업을 수행할 수 있음
+      this.fetchComments(); // 댓글 목록을 다시 불러옴
+    },
+    formatCreatedAt(created_at) {
+      const date = new Date(created_at);
+      return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)} ${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}`;
     }
   }
 };

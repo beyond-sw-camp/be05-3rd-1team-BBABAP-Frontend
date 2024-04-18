@@ -3,21 +3,27 @@
       <textarea v-model="newCommentText" placeholder="댓글을 입력하세요" class="comment-input"></textarea>
       <button @click="addComment" class="comment-btn">댓글 작성</button>
     </div>
-  </template>
+</template>
   
-  <script>
+<script>
   import axios from 'axios';
+  import { mapGetters } from 'vuex';
   
   export default {
     data() {
       return {
-        newCommentText: ''
+        newCommentText: '',
+        author: '',
       };
+    },
+    computed: {
+    // userNickname getter를 가져옴
+      ...mapGetters(['userNickname'])
     },
     methods: {
       addComment() {
         const boardId = this.$route.params.id;
-        axios.post(`http://localhost:7777/boards/${boardId}/comments`, { text: this.newCommentText })
+        axios.post(`http://localhost:7777/boards/${boardId}/comments`, { text: this.newCommentText, author: this.userNickname})
           .then(response => {
             this.newCommentText = ''; // Clear the input field after successful submission
             this.$emit('comment-added'); // Emit event to notify parent component (BoardView) that a new comment has been added
