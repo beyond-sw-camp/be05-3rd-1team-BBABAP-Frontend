@@ -100,7 +100,11 @@
 
 ### 4. [화면테스트](화면테스트)
 
-* [테스트 계획](##테스트)
+* [스토리보드](##스토리보드)
+
+### 5. [화면테스트](화면테스트)
+
+* [테스트계획](##테스트)
 
 ---
 
@@ -151,7 +155,16 @@
 
 <br>
 
-# 4. 화면테스트
+# 4. 스토리보드
+
+<details>
+  <summary>지도</summary>
+  <div markdown="1">
+    <img width="80%" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/9ee5a4ad-8518-4905-9edf-d4e270b52e81"/>
+  </div>
+</details>
+
+# 5. 화면테스트
 
 ## 테스트 계획
 
@@ -164,6 +177,5 @@
   <div markdown="1">
     <img width="80%" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/c448a40a-b413-4ab2-a0f6-e00018bafd08"/>
   </div>
-
 </details>
 
