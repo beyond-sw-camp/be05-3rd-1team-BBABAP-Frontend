@@ -31,13 +31,6 @@
 <br>
 </div>
 
-
-
-
-
-
-
-<br>
 <br>
 
 ![image](https://github.com/beyond-sw-camp/be05-2nd-1team-BBABAP/assets/155924495/499225bb-9656-4383-aea4-1a00e9ceaf5c)
@@ -89,6 +82,10 @@
 ### 4. [스토리보드](##스토리보드)
 
 * [지도](##지도)
+* [회원가입](#회원가입)
+* [로그인](##로그인)
+* [게시글](##게시글)
+* [댓글](##댓글)
 
 ### 5. [화면테스트](화면테스트)
 
@@ -147,9 +144,27 @@
 # 4. 스토리보드
 
 <details>
-  <summary>지도</summary>
+  <summary>카카오맵 API, 공공데이터 API</summary>
   <div markdown="1">
     <img width="80%" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/9ee5a4ad-8518-4905-9edf-d4e270b52e81"/>
+  </div>
+</details>
+<details>
+  <summary>회원가입</summary>
+  <div markdown="1">
+    <img width="80%" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/c448a40a-b413-4ab2-a0f6-e00018bafd08"/>
+  </div>
+</details>
+<details>
+  <summary>로그인</summary>
+  <div markdown="1">
+    <img width="80%" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/c448a40a-b413-4ab2-a0f6-e00018bafd08"/>
+  </div>
+</details>
+<details>
+  <summary>게시글</summary>
+  <div markdown="1">
+    <img width="80%" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/c448a40a-b413-4ab2-a0f6-e00018bafd08"/>
   </div>
 </details>
 
@@ -164,7 +179,25 @@
 ## 테스트 결과
 
 <details>
-  <summary>지도</summary>
+  <summary>카카오맵 API, 공공데이터 API</summary>
+  <div markdown="1">
+    <img width="80%" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/c448a40a-b413-4ab2-a0f6-e00018bafd08"/>
+  </div>
+</details>
+<details>
+  <summary>회원가입</summary>
+  <div markdown="1">
+    <img width="80%" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/c448a40a-b413-4ab2-a0f6-e00018bafd08"/>
+  </div>
+</details>
+<details>
+  <summary>로그인</summary>
+  <div markdown="1">
+    <img width="80%" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/c448a40a-b413-4ab2-a0f6-e00018bafd08"/>
+  </div>
+</details>
+<details>
+  <summary>게시글</summary>
   <div markdown="1">
     <img width="80%" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/c448a40a-b413-4ab2-a0f6-e00018bafd08"/>
   </div>
