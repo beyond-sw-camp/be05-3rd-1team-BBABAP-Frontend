@@ -4,8 +4,6 @@ import LoginForm from '@/components/LoginForm.vue';
 import PostForm from '../views/PostForm.vue';
 import BoardView from '../views/BoardView.vue';
 
-
-
 const routes = [
   {
     path: '/',

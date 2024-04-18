@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <KakaoMap msg=""/>
+    <FinalMap msg=""/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import KakaoMap from '@/components/FinalMap.vue'
+import FinalMap from '@/components/FinalMap.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    KakaoMap
+    FinalMap
   }
 }
 </script>

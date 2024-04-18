@@ -1,51 +1,61 @@
 <template>
-    <div>
-      <table>
-        <div>
-          <form>
+  <div>
+    <table>
+      <!-- 주소검색 -->
+      <tr>
+        <td>
+          <form @submit.prevent="searchAddress">
             주소검색 : <input type="text" v-model="address" size="15" @keydown.enter="searchAddress"/>
-            <button type="submit" @click="searchAddress">검색</button>
+            <button type="submit">검색</button>
           </form>
-        </div>
-      </table>
-      <div class="option">
-            <div>
-              <form @submit.prevent="searchPlaces">
-                키워드 : <input type="text" v-model="keyword" size="15" placeholder="전기차">
-                <button type="submit">검색하기</button>
-              </form>
-            </div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- 내 위치로 이동 버튼 -->
+    <button @click="findMyLocation">내 위치로</button>
+
+    <!-- 지도 -->
+    <div class="map_wrap">
+      <div id="map" ref="map" style="width: 100%; height: 700px; position: relative; overflow: hidden;"></div>
+
+    <!-- 키워드 검색 -->
+    <div class="option">
+      <form @submit.prevent="searchPlaces">
+        키워드 : <input type="text" v-model="keyword" size="15" placeholder="전기차">
+        <button type="submit">검색하기</button>
+      </form>
+    </div>
+
+      <!-- 검색 결과를 표시할 팝업 리스트 -->
+      <div id="searchResults">
+        <ul v-if="searchResult.length > 0">
+          <li v-for="result in searchResult" :key="result.place_name">
+            <a href="#" @click="moveToLocation(result.y, result.x)">{{ result.place_name }}</a>
+          </li>
+        </ul>
+        <p v-else>검색 결과가 없습니다. 주소를 다시 확인해주세요.</p>
       </div>
-      <button type="submit" @click="findMyLocation">내 위치로</button>
-      <div class="map_wrap">
-        <div id="map" style="width: 100%; height: 700px; position: relative; overflow: hidden;"></div>
-        <!-- 검색 결과를 표시할 팝업 리스트 -->
-        <div id="searchResults">
-          <ul v-if="searchResult.length > 0">
-            <li v-for="result in searchResult" :key="result.place_name">
-              <a href="#" @click="moveToLocation(result.y, result.x)">{{ result.place_name }}</a>
-            </li>
-          </ul>
-          <p v-else>검색 결과가 없습니다. 주소를 다시 확인해주세요.</p>
-        </div>
-        <div id="menu_wrap" class="bg_white">
-          <hr>
-          <ul id="placesList">
-            <li v-for="(place, index) in places" :key="index" class="item">
-              <span :class="'markerbg marker_' + (index + 1)"></span>
-              <div class="info">
-                <h5>{{ place.place_name }}</h5>
-                <span>{{ place.road_address_name }}</span>
-                <span class="jibun gray">{{ place.address_name }}</span>
-                <span class="tel">{{ place.phone }}</span>
-              </div>
-            </li>
-          </ul>
-          <div id="pagination"></div>
-        </div>
+
+      <!-- 장소 목록 -->
+      <div id="menu_wrap" class="bg_white">
+        <hr>
+        <ul id="placesList">
+          <li v-for="(place, index) in places" :key="index" class="item">
+            <span :class="'markerbg marker_' + (index + 1)"></span>
+            <div class="info">
+              <h5>{{ place.place_name }}</h5>
+              <span>{{ place.road_address_name }}</span>
+              <span class="jibun gray">{{ place.address_name }}</span>
+              <span class="tel">{{ place.phone }}</span>
+            </div>
+          </li>
+        </ul>
+        <div id="pagination"></div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   import axios from 'axios';
@@ -214,62 +224,64 @@
         });
       },
       fetchChargerData(address) {
-        // 주소를 이용하여 충전소 데이터 가져오기
-        axios.get(`http://localhost:7777/bbabap/getchargeraddress/${address}`)
-          .then(response => {
+    // 주소를 이용하여 충전소 데이터 가져오기
+    axios.get(`http://localhost:7770/bbabap/getchargeraddress/${address}`)
+        .then(response => {
             const data = response.data;
             console.log('Charger Info:', data);
             // 가져온 데이터로 마커 표시
             this.displayMarkersWithAddresses(data.data);
-          })
-          .catch(error => {
+        })
+        .catch(error => {
             console.error('Error fetching charger data:', error);
-          });
-      },
-      displayMarkersWithAddresses(dataArray) {
-      // 배열에 있는 각 데이터에 대해 반복하며 마커를 표시
-      dataArray.forEach(charger => {
+        });
+},
+displayMarkersWithAddresses(dataArray) {
+    // 배열에 있는 각 데이터에 대해 반복하며 마커를 표시
+    dataArray.forEach(charger => {
         // 주소를 이용하여 지도에 마커를 생성하고 표시
         const geocoder = new kakao.maps.services.Geocoder();
         geocoder.addressSearch(charger.주소, (result, status) => {
-          if (status === kakao.maps.services.Status.OK) {
-            const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-            // 마커 생성
-            const marker = new kakao.maps.Marker({
-              position: coords
-            });
-            // 마커를 지도에 표시
-            marker.setMap(this.map);
-            // 마커 클릭 시 정보창에 주소 정보와 즐겨찾기 버튼을 함께 출력
-            kakao.maps.event.addListener(marker, 'click', () => {
-              // 마커의 좌표 정보를 사용하여 주소 정보를 요청.
-              geocoder.coord2Address(marker.getPosition().getLng(), marker.getPosition().getLat(), (result, status) => {
-                if (status === kakao.maps.services.Status.OK) {
-                  let detailAddr = result[0].road_address ?
-                    `<div style="padding: 5px; border-bottom: 1px solid #eee; margin-bottom: 5px;">도로명주소 : ${result[0].road_address.address_name}</div>` :
-                    '';
-                  detailAddr += `<div style="padding: 5px;">지번 주소 : ${result[0].address.address_name}</div><button class="addFavorite" style="margin-top: 5px;">즐겨찾기 추가</button>`;
-                  // 인포윈도우에 상세 주소 정보를 표시합니다
-                  this.infowindow.setContent(`<div style="margin:10px; font-size:12px; min-width:200px; line-height:1.5;">${charger.충전소명}</div><div style="margin:10px; font-size:12px; min-width:200px; line-height:1.5;">${detailAddr}</div>`);
-                  this.infowindow.open(this.map, marker);
-                  // 즐겨찾기 버튼 클릭 이벤트 리스너
-                  const addFavoriteButtons = document.querySelectorAll('.addFavorite');
-                  addFavoriteButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                      alert("즐겨찾기 버튼 클릭");
+            if (status === kakao.maps.services.Status.OK) {
+                const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                // 마커 생성
+                const marker = new kakao.maps.Marker({
+                    position: coords
+                });
+                // 마커를 지도에 표시
+                marker.setMap(this.map);
+                // 마커 클릭 시 정보창에 주소 정보와 즐겨찾기 버튼을 함께 출력
+                kakao.maps.event.addListener(marker, 'click', () => {
+                    // 마커의 좌표 정보를 사용하여 주소 정보를 요청.
+                    geocoder.coord2Address(marker.getPosition().getLng(), marker.getPosition().getLat(), (result, status) => {
+                        if (status === kakao.maps.services.Status.OK) {
+                            let detailAddr = result[0].road_address ?
+                                `<div style="padding: 5px; border-bottom: 1px solid #eee; margin-bottom: 5px;">도로명주소 : ${result[0].road_address.address_name}</div>` :
+                                '';
+                            detailAddr += `<div style="padding: 5px;">지번 주소 : ${result[0].address.address_name}</div><button class="addFavorite" style="margin-top: 5px;">즐겨찾기 추가</button>`;
+                            // 인포윈도우에 상세 주소 정보를 표시합니다
+                            this.infowindow.setContent(`<div style="margin:10px; font-size:12px; min-width:200px; line-height:1.5;">${charger.충전소명}</div><div style="margin:10px; font-size:12px; min-width:200px; line-height:1.5;">${detailAddr}</div>`);
+                            this.infowindow.open(this.map, marker);
+                            // 즐겨찾기 버튼 클릭 이벤트 리스너
+                            const addFavoriteButtons = document.querySelectorAll('.addFavorite');
+                            addFavoriteButtons.forEach(button => {
+                                button.addEventListener('click', () => {
+                                    alert("즐겨찾기 버튼 클릭");
+                                });
+                            });
+                            // 마커 클릭 시 지번 주소 출력
+                            alert(result[0].address.address_name);
+                        }
                     });
-                  });
-                }
-              });
-            });
-            // 마커를 클릭했을 때 정보창을 열기 위한 내용 설정
-            const message = `<div class="infoWindow">${charger.충전소명}</div>`;
-            this.infowindow.setContent(message);
-            this.infowindow.open(this.map, marker);//지도에 정보창 표시
-          }
+                });
+                // 마커를 클릭했을 때 정보창을 열기 위한 내용 설정
+                const message = `<div class="infoWindow">${charger.충전소명}</div>`;
+                this.infowindow.setContent(message);
+                this.infowindow.open(this.map, marker);//지도에 정보창 표시
+            }
         });
-      });
-    },
+    });
+},
     findMyLocbtn() {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
@@ -456,4 +468,3 @@
       overflow: hidden;
     }
   </style>
-  
