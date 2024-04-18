@@ -67,6 +67,8 @@
 
 ### 3. [프로젝트 설명](#프로젝트-설명)
 
+* [패키지구조](#패키지구조)
+
 * [지도](#지도)
     * [카카오맵 API](#카카오)
     * [공공데이터_한국환경공단_전기차 충전소 위치 및 운영정보 API ](#공공데이터)
@@ -125,6 +127,10 @@
 [요구사항 명세서](https://docs.google.com/spreadsheets/d/1HJ723_Ogkmu6DHP5rk5k0lYIcjl0OEtLpUuBsLs4hm0/edit#gid=740647757)
 
 # 3. 프로젝트 설명
+
+## 패키지구조
+![패키지구조](https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/d7ff6a88-5539-4aae-94f8-91d7dfc7519d)
+
 
 ## 지도
 
