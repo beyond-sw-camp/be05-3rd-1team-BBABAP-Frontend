@@ -120,6 +120,13 @@
       "nickname": "fgd",
       "email": "test@gmail.com",
       "password": "QWER!"
+    },
+    {
+      "username": "rkdcksal02",
+      "nickname": "홍길동",
+      "email": "rkdcksal02@gmail.com",
+      "password": "A1234!",
+      "id": "KdBWy2a"
     }
   ]
 }
