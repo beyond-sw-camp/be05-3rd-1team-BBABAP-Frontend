@@ -173,6 +173,8 @@
 
 [테스트 계획](https://docs.google.com/spreadsheets/d/1HJ723_Ogkmu6DHP5rk5k0lYIcjl0OEtLpUuBsLs4hm0/edit#gid=715609994)
 
+## 테스트 결과
+
 <details>
   <summary>지도</summary>
   <div markdown="1">
