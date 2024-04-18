@@ -138,15 +138,19 @@
 
 # 2. 요구사항 정의
 ## 기능 명세서
+사진
 
+[기능 명세서](https://docs.google.com/spreadsheets/d/1HJ723_Ogkmu6DHP5rk5k0lYIcjl0OEtLpUuBsLs4hm0/edit#gid=1800551971)
 
 ## 요구사항 명세서
+사진
 
-## 테이블 명세서
+[요구사항 명세서](https://docs.google.com/spreadsheets/d/1HJ723_Ogkmu6DHP5rk5k0lYIcjl0OEtLpUuBsLs4hm0/edit#gid=740647757)
 
-## ERD 설계도
+## 테스트 계획
+사진
 
-## API 명세서
+[테스트 계획](https://docs.google.com/spreadsheets/d/1HJ723_Ogkmu6DHP5rk5k0lYIcjl0OEtLpUuBsLs4hm0/edit#gid=715609994)
 
 # 3. 프로젝트 설명
 ## 회원, 게시판, 댓글 CRUD
