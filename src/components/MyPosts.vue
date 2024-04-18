@@ -28,12 +28,12 @@
       <button v-if="currentPage < totalPages" @click="nextPage" class="pagination-btn">다음</button>
     </div>
     <br>
-
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -44,6 +44,8 @@ export default {
     };
   },
   computed: {
+    // userNickname getter를 가져옴
+    ...mapGetters(['userNickname']),
     // 표시되는 게시물 목록
     displayedBoards() {
       const startIndex = (this.currentPage - 1) * this.perPage;
@@ -62,21 +64,20 @@ export default {
   methods: {
     // 사용자의 게시물을 가져오는 메서드
     fetchUserBoards() {
-      // 사용자의 정보를 가져오는 API 호출
-      axios.get('http://localhost:3000/users')
+      // 현재 사용자의 닉네임을 가져옵니다.
+      const userNickname = this.userNickname;
+      if (!userNickname) {
+        // 사용자가 로그인되어 있지 않으면 종료합니다.
+        return;
+      }
+      // 사용자의 닉네임을 이용하여 해당 사용자가 작성한 게시물을 가져오는 API 호출
+      axios.get(`http://localhost:7777/boards?nickname=${userNickname}`)
           .then(response => {
-            // 사용자의 ID를 통해 해당 사용자가 작성한 게시물을 가져오는 API 호출
-            axios.get(`http://localhost:7777/boards?nickname=${response.data.nickname}`)
-                .then(response => {
-                  // 가져온 게시물을 저장합니다.
-                  this.boards = response.data;
-                })
-                .catch(error => {
-                  console.error('Error fetching user boards:', error);
-                });
+            // 가져온 게시물을 저장합니다.
+            this.boards = response.data;
           })
           .catch(error => {
-            console.error('Error fetching user info:', error);
+            console.error('Error fetching user boards:', error);
           });
     },
     // 페이지를 설정하는 메서드
