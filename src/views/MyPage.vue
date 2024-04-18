@@ -5,9 +5,9 @@
         <router-link to="/mypage/userinfo">내 정보 변경</router-link>
         <router-link to="/mypage/myposts">나의 게시글</router-link>
         <router-link to="/mypage/favoritestations">충전소 즐겨찾기</router-link>
-        <router-link to="/mypage/chargecredits">요금 충전</router-link>
+<!--        <router-link to="/mypage/chargecredits">요금 충전</router-link>-->
         <router-link to="/mypage/mycoupons">내 쿠폰</router-link>
-        <router-link to="/mypage/inquiries">문의사항</router-link>
+<!--        <router-link to="/mypage/inquiries">문의사항</router-link>-->
       </div>
       <!-- 탭 내용을 표시할 공간 -->
       <router-view></router-view>
