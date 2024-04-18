@@ -1,38 +1,34 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
+import FavoriteStations from '@/components/FavoriteStations.vue';
+import HomeView from '@/views/HomeView.vue';
+import AboutView from '@/views/AboutView.vue';
+import BoardListJsonServer from '@/views/BoardListJsonServer.vue';
 import SignupForm from '@/components/SignupForm.vue';
 import LoginForm from '@/components/LoginForm.vue';
-import BoardListJsonServer from '../views/BoardListJsonServer';
-import PostForm from '../views/PostForm.vue';
-import BoardView from '../views/BoardView.vue';
-//마이페이지 관련
-import MyPage from '../views/MyPage.vue';
-import UserInfo from '../components/UserInfo.vue';
-import MyPosts from '../components/MyPosts.vue';
-import FavoriteStations from '../components/FavoriteStations.vue';
-import ChargeCredits from '../components/ChargeCredits.vue';
-import MyCoupons from '../components/MyCoupons.vue';
-import InquiriesPage from '../components/InquiriesPage.vue';
-
+import PostForm from '@/views/PostForm.vue';
+import BoardView from '@/views/BoardView.vue';
+import MyPage from '@/views/MyPage.vue';
+import UserInfo from '@/components/UserInfo.vue';
+import MyPosts from '@/components/MyPosts.vue';
+import ChargeCredits from '@/components/ChargeCredits.vue';
+import MyCoupons from '@/components/MyCoupons.vue';
+import InquiriesPage from '@/components/InquiriesPage.vue';
 
 const routes = [
   {
-    path: '/mypage/favoritestations',
-    component: FavoriteStations
-  },  
-  {
     path: '/',
-    name: 'home',
-    component: () => import('../views/HomeView.vue')
+    name: 'Home',
+    component: HomeView
   },
   {
     path: '/about',
-    name: 'about',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    name: 'About',
+    component: AboutView
   },
   {
     path: '/boardlist',
     name: 'BoardList',
-    component: BoardListJsonServer // 나중에 BoardList.vue로 바꿔주기
+    component: BoardListJsonServer
   },
   {
     path: '/signup',
@@ -44,15 +40,15 @@ const routes = [
     name: 'LoginForm',
     component: LoginForm
   },
-  { 
+  {
     path: '/post/new',
-    name: 'PostBoard', 
-    component: PostForm 
+    name: 'PostForm',
+    component: PostForm
   },
-  { 
-    path: '/board/:id', 
-    name:'boardView',
-    component: BoardView 
+  {
+    path: '/board/:id',
+    name: 'BoardView',
+    component: BoardView
   },
   {
     path: '/mypage',
@@ -82,7 +78,7 @@ const routes = [
       {
         path: 'inquiriespage',
         component: InquiriesPage
-      },
+      }
     ]
   }
 ];

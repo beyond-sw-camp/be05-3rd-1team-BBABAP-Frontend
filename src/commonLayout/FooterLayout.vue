@@ -1,17 +1,16 @@
 <template>
     <div>
-        <hr/>
-        <div>
+      <hr/>
+      <div>
         여기는 footer 자리입니다.
-        </div>
+      </div>
     </div>
-    
-</template>
+  </template>
   
-<script>
-    export default {}
-</script>
-
-<style scoped>
-
-</style>
+  <script>
+  export default {}
+  </script>
+  
+  <style scoped>
+  </style>
+  

@@ -21,11 +21,11 @@
               <span>{{ place.road_address_name }}</span>
               <span class="jibun gray">{{ place.address_name }}</span>
               <span class="tel">{{ place.phone }}</span>
-              <!-- 기존의 코드에 추가 -->
-<span>
-  <button @click="toggleFavorite(place)">즐겨찾기 {{ isFavorite(place) ? '제거' : '추가' }}</button>
-</span>
-
+              <span>
+    <button @click="toggleFavorite(place)">
+      {{ isFavorite(place) ? '제거' : '추가' }}
+    </button>
+  </span>
             </div>
           </li>
         </ul>
@@ -38,11 +38,18 @@
 <script>
 export default {
   name: "KakaoMap",
+  props: {
+    favorites: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       keyword: "",
       places: [],
-      markers: []
+      markers: [],
+      infoWindow: null // infoWindow 변수 추가
     };
   },
   mounted() {
@@ -79,9 +86,7 @@ export default {
         return;
       }
 
-      // 검색을 place_name으로 변경
       const ps = new window.kakao.maps.services.Places();
-      // ps.keywordSearch(this.keyword, this.placesSearchCB);
       ps.keywordSearch(this.keyword, this.placesSearchCB, { useMapBounds: true });
     },
     placesSearchCB(data, status, pagination) {
@@ -96,12 +101,9 @@ export default {
       }
     },
     displayPlaces() {
-      // 기존 마커 제거
       this.removeMarkers();
-
       const bounds = new window.kakao.maps.LatLngBounds();
 
-      // 검색 결과에 따라 마커 추가
       this.places.forEach((place, index) => {
         const position = new window.kakao.maps.LatLng(place.y, place.x);
         const markerImage = new window.kakao.maps.MarkerImage(
@@ -122,9 +124,67 @@ export default {
         this.markers.push(marker);
 
         bounds.extend(position);
+
+        window.kakao.maps.event.addListener(marker, 'click', () => {
+          this.closeInfoWindows();
+          this.displayInfoWindow(place);
+        });
       });
 
       this.map.setBounds(bounds);
+    },
+    closeInfoWindows() {
+      if (this.infoWindow) {
+        this.infoWindow.setMap(null);
+      }
+    },
+    displayInfoWindow(place) {
+  const infoWindowStyle = `
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    text-align: left;
+    position: absolute;
+    z-index: 1;
+  `;
+
+  const content = `
+    <div id="infoWindowContent" style="${infoWindowStyle}">
+      <h5>${place.place_name}</h5>
+      <p>${place.road_address_name}</p>
+      <p class="jibun gray">${place.address_name}</p>
+      <p class="tel">${place.phone}</p>
+      <button id="favoriteButton">
+        즐겨찾기 ${this.isFavorite(place) ? '제거' : '추가'}
+      </button>
+    </div>
+  `;
+
+  const position = new window.kakao.maps.LatLng(place.y, place.x);
+  const overlay = new window.kakao.maps.CustomOverlay({
+    content: content,
+    map: this.map,
+    position: position
+  });
+
+  // 즐겨찾기 버튼에 대한 클릭 이벤트 처리
+  const button = document.getElementById('favoriteButton');
+  button.addEventListener('click', () => {
+    this.addToFavorites(place);
+  });
+
+  this.infoWindow = overlay;
+},
+
+    addToFavorites(place) {
+      if (!this.isFavorite(place)) {
+        this.addFavorite(place);
+      } else {
+        this.removeFavorite(place);
+      }
     },
     displayPagination(pagination) {
       const paginationEl = document.getElementById("pagination");
@@ -150,17 +210,12 @@ export default {
       this.markers.forEach(marker => marker.setMap(null));
       this.markers = [];
     },
-    // 즐겨찾기 메서드를 컴포넌트의 메서드로 옮겼습니다.
     toggleFavorite(place) {
       if (this.isFavorite(place)) {
         this.removeFavorite(place);
       } else {
         this.addFavorite(place);
       }
-    },
-    isFavorite(place) {
-      // this.favorites를 사용하도록 수정합니다.
-      return this.$root.favorites.some(favorite => favorite.place_name === place.place_name);
     },
     async addFavorite(place) {
       try {
@@ -195,6 +250,9 @@ export default {
       } catch (error) {
         console.error('Error removing favorite:', error);
       }
+    },
+    isFavorite(place) {
+      return this.favorites.some(favorite => favorite.place_name === place.place_name);
     }
   }
 };
@@ -252,5 +310,54 @@ export default {
 }
 #placesList .item .tel {
   color: #009900;
+}
+.item button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745; /* Green color */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.item button:hover {
+  background-color: #218838; /* Darker green color on hover */
+}
+
+.infoWindow {
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.9); /* 밝은 배경색 */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+  max-width: 300px; /* 내용의 최대 너비 설정 */
+  text-align: left;
+  position: absolute;
+  z-index: 1;
+}
+
+.infoWindow h5 {
+  margin: 0 0 5px;
+  font-size: 16px;
+}
+.infoWindow p {
+  margin: 5px 0;
+}
+.infoWindow .tel {
+  color: #009900;
+}
+.infoWindow button {
+  display: block;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+.infoWindow button:hover {
+  background-color: #218838;
 }
 </style>
