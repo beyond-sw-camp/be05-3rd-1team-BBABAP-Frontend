@@ -120,13 +120,13 @@
 
 ## 기능 명세서
 
-사진
+<img width="832" alt="기능명세서" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/064701c6-fb48-4401-88dd-12ba5e9cfbac">
 
 [기능 명세서](https://docs.google.com/spreadsheets/d/1HJ723_Ogkmu6DHP5rk5k0lYIcjl0OEtLpUuBsLs4hm0/edit#gid=1800551971)
 
 ## 요구사항 명세서
 
-사진
+<img width="869" alt="요구사항명세서" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/78d2f881-6096-49b8-91d2-955ca9e952ca">
 
 [요구사항 명세서](https://docs.google.com/spreadsheets/d/1HJ723_Ogkmu6DHP5rk5k0lYIcjl0OEtLpUuBsLs4hm0/edit#gid=740647757)
 
@@ -155,7 +155,7 @@
 
 ## 테스트 계획
 
-사진
+<img width="417" alt="테스트계획" src="https://github.com/beyond-sw-camp/be05-3rd-1team-BBABAP-Frontend/assets/156767787/05ede3c8-ea61-4882-98d4-e0dd50af4644">
 
 [테스트 계획](https://docs.google.com/spreadsheets/d/1HJ723_Ogkmu6DHP5rk5k0lYIcjl0OEtLpUuBsLs4hm0/edit#gid=715609994)
 
