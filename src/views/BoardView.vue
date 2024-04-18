@@ -2,6 +2,8 @@
   <div class="post-details">
     <h2 class="post-title">{{ board.title }}</h2>
     <p class="post-content" v-html="board.content"></p>
+    <button v-if="shouldShowButton" @click="deletePost">삭제</button>
+    <button v-if="shouldShowButton" @click="goToUpdateForm">수정하기</button>
     
     <!-- 댓글 목록 컴포넌트 -->
     <CommentList :comments="comments" />
@@ -17,6 +19,7 @@
 import axios from 'axios';
 import CommentForm from '../components/CommentForm.vue';
 import CommentList from '../components/CommentList.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -32,6 +35,12 @@ export default {
   created() {
     this.fetchPost();
     this.fetchComments();
+  },
+  computed: {
+    ...mapGetters(['userNickname']),
+    shouldShowButton() {
+      return this.board.author === this.userNickname;
+    }
   },
   methods: {
     fetchPost() {
@@ -53,6 +62,23 @@ export default {
         .catch(error => {
           console.error('Error fetching comments:', error);
         });
+    },
+    deletePost() {
+      const boardId = this.$route.params.id;
+      axios.delete(`http://localhost:7777/boards/${boardId}`)
+        .then(response => {
+          // 게시물 삭제 후 어떤 작업을 수행할 수 있음
+          // 예: 게시물 목록으로 이동
+          console.log(response);
+          this.$router.push('/boardlist');
+        })
+        .catch(error => {
+          console.error('Error deleting post:', error);
+        });
+    },
+    goToUpdateForm() {
+      const boardId = this.$route.params.id;
+      this.$router.push(`/update/${boardId}`); // 수정 폼으로 이동
     }
   }
 };
