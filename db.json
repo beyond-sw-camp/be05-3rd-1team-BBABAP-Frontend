@@ -18,40 +18,72 @@
   },
   "favorites": [
     {
-      "id": "8130098",
-      "address_name": "서울 강서구 화곡동 1125",
+      "id": "8333504",
+      "address_name": "서울 송파구 잠실동 305-11",
       "category_group_code": "OL7",
       "category_group_name": "주유소,충전소",
-      "category_name": "교통,수송 > 자동차 > 주유,가스 > 주유소 > S-oil주유소",
+      "category_name": "교통,수송 > 자동차 > 주유,가스 > 주유소 > GS칼텍스",
       "distance": "",
-      "phone": "02-2605-4000",
-      "place_name": "하이웨이주유소",
-      "place_url": "http://place.map.kakao.com/8130098",
-      "road_address_name": "서울 강서구 공항대로 432",
-      "x": "126.85480465807",
-      "y": "37.5546689074197"
-    },
-    {
-      "id": "1205941793",
-      "address_name": "경기 성남시 수정구 수진동 4709",
-      "category_group_code": "OL7",
-      "category_group_name": "주유소,충전소",
-      "category_name": "교통,수송 > 자동차 > 주유,가스 > 주유소 > 알뜰주유소",
-      "distance": "",
-      "phone": "031-759-0178",
-      "place_name": "대보건설 성남주유소",
-      "place_url": "http://place.map.kakao.com/1205941793",
-      "road_address_name": "경기 성남시 수정구 산성대로 41",
-      "x": "127.12422865070408",
-      "y": "37.435621240665185"
+      "phone": "02-416-1911",
+      "place_name": "삼표에너지 아시아주유소",
+      "place_url": "http://place.map.kakao.com/8333504",
+      "road_address_name": "서울 송파구 도곡로 438",
+      "x": "127.0773806722622",
+      "y": "37.504611920637885"
     }
   ],
   "users": [
     {
-      "id": "3a7a",
+      "id": "1",
+      "username": "example_user",
+      "nickname": "example_nickname",
+      "email": "example@example.com",
+      "password": "example_password",
+      "registrationDate": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "1697",
       "username": "qwer",
       "nickname": "qwer",
+      "email": "test@gmail.com",
+      "password": "QWER!",
+      "registrationDate": "2024-04-17T18:37:53.158Z"
+    },
+    {
+      "id": "57a5",
+      "username": "fg",
+      "nickname": "fg",
+      "email": "test@gmail.com",
+      "password": "QWER!",
+      "registrationDate": "2024-04-17T18:39:13.719Z"
+    },
+    {
+      "id": "45e6",
+      "username": "asdf",
+      "nickname": "asdf",
       "email": "qwer@gmail.com",
+      "password": "QWER!",
+      "registrationDate": "2024-04-17T18:40:46.857Z"
+    },
+    {
+      "id": "adc2",
+      "username": "test",
+      "nickname": "test",
+      "email": "test@gmail.com",
+      "password": "QWER!"
+    },
+    {
+      "id": "3fc4",
+      "username": "ff",
+      "nickname": "ff",
+      "email": "test@gmail.com",
+      "password": "QWER!"
+    },
+    {
+      "id": "8a1c",
+      "username": "we",
+      "nickname": "we",
+      "email": "test@gmail.com",
       "password": "QWER!"
     },
     {

@@ -3,6 +3,7 @@ import SignupForm from '@/components/SignupForm.vue';
 import LoginForm from '@/components/LoginForm.vue';
 import PostForm from '../views/PostForm.vue';
 import BoardView from '../views/BoardView.vue';
+import BoardUpdate from '../views/BoardUpdate.vue';
 
 
 
@@ -40,7 +41,12 @@ const routes = [
     path: '/board/:id', 
     name:'boardView',
     component: BoardView 
-  }
+  },
+  { 
+    path: '/update/:id', 
+    name:'boardUpdate',
+    component: BoardUpdate
+  },
 ]
 
 const router = createRouter({

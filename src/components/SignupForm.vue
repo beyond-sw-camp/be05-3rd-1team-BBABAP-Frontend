@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -53,8 +55,17 @@ export default {
       passwordLengthMet: false,
       passwordUpperCaseMet: false,
       passwordSpecialCharacterMet: false,
-      passwordConditionsMet: 0
+      passwordConditionsMet: 0,
+      users: [] // 사용자 데이터를 저장할 배열
     };
+  },
+  async created() {
+    try {
+      const response = await axios.get('http://localhost:3000/users');
+      this.users = response.data;
+    } catch (error) {
+      console.error('사용자 데이터를 가져오는 중 에러 발생:', error);
+    }
   },
   computed: {
     canSubmit() {
@@ -74,7 +85,16 @@ export default {
     async signup() {
   // 유효성 검사
   if (!this.canSubmit) {
-    console.error('모든 필드를 올바르게 입력하세요.');
+    alert('모든 필드를 올바르게 입력하세요.');
+    return;
+  }
+
+  // 아이디와 닉네임 중복 검사
+  const usernameExists = this.checkUsernameExists(this.username);
+  const nicknameExists = this.checkNicknameExists(this.nickname);
+
+  if (usernameExists || nicknameExists) {
+    alert('아이디 또는 닉네임이 이미 사용 중입니다.');
     return;
   }
 
@@ -93,20 +113,27 @@ export default {
     });
 
     if (response.ok) {
-      // 회원가입 성공
-      console.log('회원가입 성공');
+  // 회원가입 성공
+  console.log('회원가입 성공');
+  
+  // Vue Router를 사용하여 로그인 페이지로 이동
+  this.$router.push({ path: '/login' });
+} else {
+  // 회원가입 실패
+  console.error('회원가입 실패');
+}
 
-      // 모달창 표시
-      this.showModal = true;
-    } else {
-      // 회원가입 실패
-      console.error('회원가입 실패');
-    }
   } catch (error) {
     console.error('회원가입 오류:', error);
   }
 },
 
+    checkUsernameExists(username) {
+      return this.users.some(user => user.username === username);
+    },
+    checkNicknameExists(nickname) {
+      return this.users.some(user => user.nickname === nickname);
+    },
     validateEmail() {
       // 간단한 이메일 유효성 검사 정규식
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -140,6 +167,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style>
